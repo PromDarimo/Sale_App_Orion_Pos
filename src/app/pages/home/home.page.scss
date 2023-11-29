@@ -1,0 +1,379 @@
+//header
+ion-header {
+    --ion-background-color: var(--ion-color-primary-tint);
+    border: none;
+}
+
+ion-menu-button {
+    color: white;
+}
+
+.search-content {
+    margin-right: 10px;
+}
+
+.search-content ion-searchbar {
+    width: 400px;
+    border-bottom: none;
+    float: right;
+    color: white;
+    --icon-color: #fff;
+}
+
+//body
+ion-content {
+    --ion-background-color: var(--ion-color-primary-tint);
+}
+
+//topping
+ion-title {
+    color: white;
+}
+
+.item_edit {
+    //topping name
+    background-color: white;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    color: rgb(0, 0, 0);
+}
+
+
+.edit_qty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    margin: 0 auto;
+}
+
+.edit_qty ion-button {
+    --ion-background-color: var(--ion-color-primary-contrast);
+    color: rgb(243, 122, 23);
+    border: 2px solid rgb(243, 122, 23);
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.edit_qty ion-text {
+    font-size: 30px;
+}
+
+.header-topping {
+    --ion-background-color: white;
+}
+
+.header-topping ion-title {
+    color: black;
+}
+
+ion-input {
+    text-align: center;
+    // margin-right: 10px;
+    font-size: 25px;
+}
+
+.topping ion-col {
+    //topping item
+    color: white;
+}
+
+.topping_name {
+    width: 70%;
+    color: black;
+    float: left;
+
+}
+
+.topping_name h5 {
+    color: black;
+}
+
+.topping_qty {
+    margin-top: 12px;
+    float: left;
+    width: 20%;
+    text-align: center;
+
+}
+
+.topping_delete {
+    float: left;
+    width: 10%;
+    color: black;
+}
+
+.topping_List {
+    background-color: #4c5866;
+    border-radius: 20px;
+    text-align: center;
+    height: 100px;
+}
+
+.topping_List h5:nth-child(1) {
+    color: white;
+    padding-top: 15px;
+}
+
+.topping_List h5:nth-child(2) {
+    color: rgb(243, 122, 23);
+    padding-top: 10px;
+}
+
+//search display
+.display_list_Search {
+    // margin: 100 auto;
+    position: relative;
+}
+
+.display_search {
+    width: 385px;
+    --ion-background-color: #495057;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: 18px;
+    z-index: 2;
+    // margin-top: -4.5px;
+    // margin-left: 237px;
+    // float: right;
+}
+
+.display_search ion-item:nth-child(1) {
+    border-top: 1px solid white;
+}
+
+.display_search ion-item {
+    color: white;
+}
+
+.animation ion-skeleton-text {
+    margin-right: 17px;
+}
+
+//list order
+.item_select {
+    z-index: 1;
+    width: 70%;
+    margin: 0 auto;
+}
+
+ion-thumbnail {
+    --size: 340px;
+}
+
+.name_price {
+    float: left;
+    display: block;
+    width: 80%;
+}
+
+.name_price h3 {
+    color: white;
+    font-size: 25px;
+}
+
+.name_price h5 {
+    font-weight: 600;
+    font-size: 20px;
+    // color: white;
+    color: rgb(243, 122, 23);
+}
+
+.qty {
+    color: white;
+    float: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // background-color: blue;
+    width: 20%;
+}
+
+.qty h5 {
+    font-size: 30px;
+}
+
+.qty ion-button {
+    width: 70px;
+    height: 70px;
+    --border-radius: 50%;
+    color: rgb(248, 248, 248);
+}
+
+.topping_name {
+    color: white;
+}
+
+//footer
+ion-footer {
+    --ion-background-color: var(--ion-color-primary-tint);
+    display: block;
+}
+
+ion-footer ion-icon {
+    color: white;
+}
+
+ion-footer h5 {
+    color: white
+}
+
+//Reponsive
+/*Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {}
+
+/*Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .display_list_Search {
+        margin-right: 17px;
+    }
+}
+
+/*Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .display_list_Search {
+        margin-right: 17px;
+    }
+}
+
+/*Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .display_list_Search {
+        margin-right: 17px;
+    }
+}
+
+
+
+@media (max-width: 575.98px) {
+    .item_select {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .edit_qty {
+        width: 50%;
+    }
+
+    .display_search {
+        width: 100%;
+    }
+
+    .search-content {
+        float: right;
+
+        margin-right: 0px;
+    }
+
+    .search-content ion-searchbar {
+        width: 300px;
+    }
+
+    .footer-button ion-button {
+        // width: 160px;
+        max-width: 100%;
+    }
+
+    .footer-button ion-button h5 {
+        text-align: center;
+        font-size: 15px;
+        padding: 0 auto;
+
+    }
+
+    .footer-button ion-icon {
+        --size: 5px;
+    }
+
+
+    .name_price h3 {
+        color: white;
+        font-size: 15px;
+    }
+
+    .name_price h5 {
+        font-weight: 600;
+        font-size: 15px;
+    }
+
+    .name_price h4 {
+        font-size: 13px;
+    }
+
+    .name_price {
+        width: 67%;
+    }
+
+    .qty h5 {
+        font-size: 20px;
+    }
+    .qty ion-button{
+        width: 60px;
+        height: 60px;
+        --border-radius:50%;
+    }
+}
+
+
+
+.toggle {
+    background-color: orange;
+}
+
+.btn--disable {
+    background-color: #313d4b;
+}
+
+
+ion-segment-button {
+    max-width: 100%; //dak oy full 
+    --padding-start: 0px;
+    --padding-end: 0px;
+    --margin-end: 0px;
+    --margin-start: 0px;
+    --color-checked: rgb(222, 129, 22);
+    color: rgb(222, 129, 22);
+}
+
+ion-segment-button::part(indicator-background) {
+    background: rgb(222, 129, 22);
+}
+
+/* Material Design styles */
+ion-segment-button.md::part(native) {
+    color: #fdfdfd;
+}
+
+.segment-button-checked.md::part(native) {
+    color: rgb(222, 129, 22);
+}
+
+ion-segment-button.md::part(indicator-background) {
+    height: 4px;
+}
+
+/* iOS styles */
+ion-segment-button.ios::part(native) {
+    color: #fcfcfc;
+}
+
+.segment-button-checked.ios::part(native) {
+    color: #fff;
+}
+
+ion-segment-button.ios::part(indicator-background) {
+    border-radius: 20px;
+}
+.qr{
+    margin-top: 20%;
+   display: flex;
+   justify-content: center;
+//    align-items: center;
+}
+.confirm ion-icon{
+    color: #313d4b;
+}

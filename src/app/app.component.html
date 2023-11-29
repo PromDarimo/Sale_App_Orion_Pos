@@ -1,0 +1,12 @@
+<ion-app>
+  <ion-split-pane contentId="main-content" disabled="true">
+    <ion-menu contentId="main-content" type="overlay" swipeGesture="false">
+        <ion-content>
+        <div>
+          <ion-button *ngFor="let language of translate.getLangs()" (click)="translateLanguageTo(language)">{{language}}</ion-button>
+        </div>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

@@ -1,0 +1,71 @@
+<div class="wrapper">
+  <div>
+    <div class="category">
+      <ion-button *ngIf="tmpParentId.length > 0" (click)="back_Click()" color="secondary">
+        <ion-icon slot="start" name="chevron-back"></ion-icon>
+        {{ tmpParentCategoryTitle }}
+      </ion-button>
+      <ion-button *ngFor="let cat of item_list" (click)="category_Click(cat)"
+        [color]="cat.id == tmpActivedCategory?.id ? 'primary' : 'light'">
+        {{ cat.title }}
+      </ion-button>
+    </div>
+  </div>
+
+  <!-- Square items -->
+  <div class="items" button="true"> <!--(click)="setOpen(true)" open modol-->
+    <ion-grid *ngIf="tmpParentItemId.length == 0" class="scroll-y ion-no-padding">
+      <ion-row>
+        <ng-container *ngFor="let item of tmpActivedCategory?.items">
+          <ng-container *ngTemplateOutlet="itemTemplate; context: {item: item}"></ng-container>
+        </ng-container>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid *ngIf="tmpParentItemId.length > 0" class="scroll-y ion-no-padding">
+      <ion-row>
+        <ion-col size="6" size-sm="4" size-md="4" size-xl="3">
+          <div class="item-wrap">
+            <div class="item-inner item-back-button" (click)="itemBack_Click()">
+              <ion-icon class="item-back-button-icon" name="chevron-back"></ion-icon>
+            </div>
+          </div>
+        </ion-col>
+        <ng-container *ngFor="let item of tmpSubItems">
+          <ng-container *ngTemplateOutlet="itemTemplate; context: {item: item}"></ng-container>
+        </ng-container>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!-- <ng-template #itemTemplate let-item="item">
+    <ion-col size="6" size-sm="4" size-md="4" size-xl="3">
+      <div (click)="item_Click(item)" class="item-wrap">
+        <div class="item-inner ion-activatable">
+          <ion-img src="http://via.placeholder.com/239x239"></ion-img>
+          <p class="ion-no-margin item-name label-without-img" *ngIf="item.image?.length == 0">
+            {{ item.item_name }}
+          </p>
+          <p class="ion-no-margin item-price" *ngIf="item.price">{{ item.price | number: '1.0-2' }}</p>
+          <ion-ripple-effect></ion-ripple-effect>
+        </div>
+        <p class="ion-no-margin item-name">
+          {{ item.item_name }}
+        </p>
+      </div>
+    </ion-col>
+  </ng-template> -->
+  <ng-template #itemTemplate let-item="item">
+    <ion-col size="6" size-sm="4" size-md="4" size-xl="3">
+      <div (click)="item_Click(item)" class="item-wrap">
+        <div class="item-inner ion-activatable">
+          <p class="ion-no-margin item-name label-without-img">
+            {{ item.item_name }}
+          </p>
+          <p class="ion-no-margin item-price" *ngIf="item.price">{{ item.price | number: '1.0-2' }}</p>
+          <ion-ripple-effect></ion-ripple-effect>
+        </div>
+      </div>
+    </ion-col>
+  </ng-template>
+</div>

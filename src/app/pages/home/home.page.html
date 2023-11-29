@@ -1,0 +1,402 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <div class="search-content">
+      <ion-searchbar placeholder="Search" [(ngModel)]="Filter" animated="true" debounce="500"
+        (ionChange)="search()"></ion-searchbar>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- item selections -->
+  <div *ngIf="selectedTap == 0">
+    <div class="display_list_Search"> <!--search display-->
+      <div class="display_search">
+        <ng-container *ngIf="isSearching">
+          <ion-item>
+            <ion-label>
+              <h3>
+                <ion-skeleton-text [animated]="true" style="width: 385px;"></ion-skeleton-text>
+              </h3>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <h3>
+                <ion-skeleton-text [animated]="true" style="width: 385px;"></ion-skeleton-text>
+              </h3>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <h3>
+                <ion-skeleton-text [animated]="true" style="width: 385px;"></ion-skeleton-text>
+              </h3>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <h3>
+                <ion-skeleton-text [animated]="true" style="width: 385px;"></ion-skeleton-text>
+              </h3>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <h3>
+                <ion-skeleton-text [animated]="true" style="width: 385px;"></ion-skeleton-text>
+              </h3>
+            </ion-label>
+          </ion-item>
+        </ng-container>
+        <!--animation-->
+
+        <ion-item *ngFor="let item2 of display_users" button="true">
+          <ion-label (click)="open_editing(item2)">- {{item2.item_name}}</ion-label>
+        </ion-item>
+      </div>
+    </div>
+
+    <app-item-selection [categories]="shareData.category_data" (onItemClick)="onItem_Click($event)">
+    </app-item-selection>
+
+  </div>
+
+  <!-- order list -->
+  <div *ngIf="selectedTap == 1">
+    <div class="display_list_Search"> <!--search display-->
+      <div class="display_search">
+        <div class="animation">
+          <ng-container *ngIf="isSearching">
+            <ion-item>
+              <ion-label>
+                <h3>
+                  <ion-skeleton-text [animated]="true" style="width: 385px;"></ion-skeleton-text>
+                </h3>
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>
+                <h3>
+                  <ion-skeleton-text [animated]="true" style="width: 385px;"></ion-skeleton-text>
+                </h3>
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>
+                <h3>
+                  <ion-skeleton-text [animated]="true" style="width: 385px;"></ion-skeleton-text>
+                </h3>
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>
+                <h3>
+                  <ion-skeleton-text [animated]="true" style="width: 385px;"></ion-skeleton-text>
+                </h3>
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>
+                <h3>
+                  <ion-skeleton-text [animated]="true" style="width: 385px;"></ion-skeleton-text>
+                </h3>
+              </ion-label>
+            </ion-item>
+          </ng-container>
+        </div>
+        <ion-item *ngFor="let item2 of display_users" button="true">
+          <ion-label (click)="open_editing(item2)">- {{item2.item_name}}</ion-label>
+        </ion-item>
+      </div>
+    </div>
+
+    <!--display list order-->
+    <div class="item_select">
+      <ng-container *ngFor="let item of order_items let i=index">
+        <ion-item (click)="itemEdit_Click(item)"><!--click to open modol topping just like in select item-->
+          <ion-thumbnail slot="start">
+            <img src="https://ionicframework.com/docs/img/demos/thumbnail.svg">
+          </ion-thumbnail>
+          <div class="name_price">
+            <h3>{{item.item_name}}</h3>
+            <h5>$ {{item.price| number:'0.2'}}</h5>
+            <h4 *ngFor="let tp of item.topping" class="topping_name">
+              + {{tp.item_name}}
+            </h4>
+          </div>
+          <div class="qty">
+            <h5 slot="end">x{{item.qty}}</h5>
+            <ion-button size="large" fill="clear" (click)="delete_item(i)"><ion-icon
+                name="trash-outline"></ion-icon></ion-button>
+          </div>
+        </ion-item>
+      </ng-container>
+    </div>
+  </div>
+
+  <!-- Modal Topping -->
+  <ion-modal [isOpen]="isOpenEditModal" (didDismiss)="isOpenEditModal = false">
+    <ng-template>
+      <ion-header class="header-topping">
+        <ion-toolbar>
+          <ion-title>
+            <h3>{{ editing_item.item_name }}</h3>
+
+            <ng-container *ngFor="let tp of editing_item.topping let i=index">
+              <div class="topping_name">
+                <h5>+ {{tp.item_name}}</h5>
+              </div>
+              <div class="topping_qty">
+                x{{tp.qty}}
+              </div>
+              <div class="topping_delete">
+                <ion-button fill="clear" (click)="delete_topping(i)"><ion-icon
+                    name="trash-outline"></ion-icon></ion-button>
+              </div>
+            </ng-container>
+          </ion-title>
+        </ion-toolbar>
+        <div class="edit_qty">
+          <ion-button fill="clear" (click)="decrement(editing_item)"><ion-text>-</ion-text></ion-button>
+          <ion-input type="number" [(ngModel)]="editing_item.qty"></ion-input>
+          <ion-button fill="clear" (click)="increment(editing_item)"><ion-text>+</ion-text></ion-button>
+        </div>
+      </ion-header>
+      <ion-content>
+        <ion-grid>
+          <ion-row> <!--topping push-->
+            <ion-col size="6" *ngFor="let tp of topping_category.items" button="true" (click)="topping_selection(tp)"
+              button="true">
+              <div class="topping_List">
+                <h5>{{tp.item_name }}</h5>
+                <h5>{{tp.price | number:'0.2'}}</h5>
+              </div>
+
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-content>
+      <ion-footer>
+        <!-- <ion-toolbar> -->
+        <div class="confirm">
+          <ion-button expand="block" fill="clear" (click)="confirm(editing_item)" strong="true">Confirm <ion-icon
+              name="checkmark-outline"></ion-icon></ion-button>
+        </div>
+        <!-- </ion-toolbar> -->
+      </ion-footer>
+    </ng-template>
+  </ion-modal>
+
+
+  <ion-modal [isOpen]="isOpenQr" (didDismiss)="isOpenQr = false" class="modelcode">
+    <ng-template>
+      <ion-content>
+        <qrcode [qrdata]="myAngularxQrCode" [width]="256" [errorCorrectionLevel]="'M'" class="qr"></qrcode>
+      </ion-content>
+      <ion-footer>
+        <ion-button (click)="confirm1()" fill="clear" expand="block">Confirm</ion-button>
+      </ion-footer>
+    </ng-template>
+  </ion-modal>
+
+  <!-- <qrcode [qrdata]="myAngularxQrCode" [width]="256" [errorCorrectionLevel]="'M'"></qrcode> -->
+
+
+
+</ion-content>
+
+<!-- footer -->
+<ion-footer>
+  <ion-toolbar>
+    <!-- <div class="footer-button">
+      <ion-grid>
+        <ion-row>
+          <ion-col class="toggle" [class.btn--disable]="!toggle">
+            <ion-button expand="full" fill="clear" (click)="tab_Click(0)" class="toggle" [class.btn--disable]="!toggle">
+              <ion-icon slot="start" ios="pricetag-outline" md="pricetag-sharp"></ion-icon>
+              <h5>{{'USER_INFO.All_Item' | translate}}</h5>
+            </ion-button>
+          </ion-col>
+          <ion-col class="toggle" [class.btn--disable]="toggle">
+            <ion-button expand="full" fill="clear" (click)="tab_Click(1)" class="toggle" [class.btn--disable]="toggle">
+              <ion-icon slot="start" ios="pricetag-outline" md="pricetag-sharp"></ion-icon>
+              <h5>{{'USER_INFO.Item_selected' | translate}}</h5>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div> -->
+
+    <!-- <div class="footer-button">
+      <ion-grid>
+        <ion-row>
+          <ion-col class="toggle" [class.btn--disable]="!toggle">
+            <ion-button fill="clear" expand="full" color="Success" (click)="tab_Click(0)" class="toggle" [class.btn--disable]="!toggle">
+              <ion-icon slot="start" ios="pricetag-outline" md="pricetag-sharp" class="hidden"></ion-icon><h5>{{'USER_INFO.All_Item' | translate}}</h5>
+            </ion-button>
+          </ion-col>
+          <ion-col class="toggle" [class.btn--disable]="toggle">
+            <ion-button fill="clear" expand="full" (click)="tab_Click(1)" class="toggle" [class.btn--disable]="toggle">
+              <ion-icon slot="start" ios="pricetag-outline" md="pricetag-sharp" class="hidden"></ion-icon>
+              <h5>{{'USER_INFO.Item_selected' | translate}}</h5>
+          </ion-button>
+        </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div> -->
+
+
+
+    <ion-grid>
+      <ion-row>
+        <ion-segment value="custom">
+          <!-- <ion-col size="auto">
+            <ion-segment-button value="custom" (click)="Openqrcode(true,editing_item)">
+              <ion-label><ion-icon name="qr-code-outline"></ion-icon></ion-label>
+            </ion-segment-button>
+          </ion-col> -->
+          <ion-col>
+            <ion-segment-button value="segment" (click)="tab_Click(0)">
+              <ion-label>
+                <h4>{{'USER_INFO.All_Item' | translate}}</h4>
+              </ion-label>
+            </ion-segment-button>
+          </ion-col>
+          <ion-col>
+            <ion-segment-button value="buttons" (click)="tab_Click(1)">
+              <ion-label>
+                <h4>{{'USER_INFO.Item_selected' | translate}}</h4>
+              </ion-label>
+            </ion-segment-button>
+          </ion-col>
+
+          <ion-col size="auto">
+            <ion-segment-button value="custom" (click)="openTotal()">
+              <ion-label><ion-icon name="qr-code-outline"></ion-icon></ion-label>
+            </ion-segment-button>
+          </ion-col>
+        </ion-segment>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+
+  <ion-modal [isOpen]="isModalOpen" [backdropDismiss]="false">
+
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <!-- <ion-title>Modal</ion-title> -->
+          <ion-buttons slot="start">
+            <ion-button (click)="close()" style="color : white">Close</ion-button>
+          </ion-buttons>
+
+          <ion-buttons slot="end">
+            <ion-button (click)="setOpen(invoice)" style="color : white">Confirm</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+
+        <!-- <ion-searchbar placeholder="Search" [(ngModel)]="Filter1" (ionChange)="searchCustomer()"></ion-searchbar> -->
+
+      
+        <ion-row style="width: 80%; margin: 0 auto;">
+          <ion-col>
+            <ion-item>
+              <ion-label style="color:chocolate">Customer : </ion-label>
+              <ion-select placeholder="Select Category" [(ngModel)]="invoice.cusID" style="color:chocolate">
+                <ng-container *ngFor="let cus of cus_list; let i = index">
+                  <ion-select-option value={{cus.id}}>
+                    <p>{{cus.customer_name}}</p>
+                  </ion-select-option>
+                </ng-container>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          
+
+
+
+          <!-- <ion-col>
+            <ion-item style="color : white">
+              <ion-label>Customer : </ion-label>
+              <ng-container *ngFor="let i of display_cus" >
+                <p [(ngModel)]="i.id">{{i.customer_name}}</p>
+              </ng-container >
+            </ion-item>
+          </ion-col> -->
+        </ion-row>
+
+        <ion-row style="width: 80%; margin: 0 auto;">
+          <ion-col>
+            <ion-item style="color : white">
+              <ion-label>
+                Total
+              </ion-label>
+              <p style="color: white;">{{total_price | number:'1.2-3'}} <sup>$</sup></p>
+            </ion-item>
+          </ion-col>
+
+          <!-- <ion-col></ion-col> -->
+        </ion-row>
+
+        <ion-row style="width: 80%; margin: 0 auto;">
+          <ion-col>
+            <ion-item style="color : white">
+              <ion-label>
+                Received
+              </ion-label>
+              <ion-input [(ngModel)]="invoice.receive" style="font-size: 16px;"></ion-input><sup>$</sup>
+            </ion-item>
+          </ion-col>
+
+          <!-- <ion-col></ion-col> -->
+        </ion-row>
+
+        <ion-row style="width: 80%; margin: 0 auto;">
+          <ion-col>
+            <ion-item style="color : white">
+              <ion-label>
+                Discount
+              </ion-label>
+              <ion-input [(ngModel)]="invoice.discount" style="font-size: 16px;"></ion-input><sup>$</sup>
+            </ion-item>
+          </ion-col>
+
+          <!-- <ion-col></ion-col> -->
+        </ion-row>
+
+        <ion-row style="width: 80%; margin: 0 auto;">
+          <ion-col>
+            <ion-item style="color : white">
+              <ion-label>
+                Net Total
+              </ion-label>
+              <p style="color: rgb(0, 255, 85);">{{total_price - invoice.discount | number:'1.2-3'}} <sup>$</sup></p>
+            </ion-item>
+          </ion-col>
+
+          <!-- <ion-col></ion-col> -->
+        </ion-row>
+
+        <ion-row style="width: 80%; margin: 0 auto;">
+          <ion-col>
+            <ion-item style="color : white">
+              <ion-label>
+                Credit
+              </ion-label>
+              <p style="color: rgb(255, 0, 0);">{{invoice.receive - (total_price -invoice.discount)  | number:'1.2-3'}} <sup>$</sup></p>
+            </ion-item>
+          </ion-col>
+
+          <!-- <ion-col></ion-col> -->
+        </ion-row>
+
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-footer>
